@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>book-library-site-ui</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- UPDATED -->
+    <name>Book Library Site UI Components</name>
+    <description>Book Library Site UI Components such as EPub Previewer</description>
+    <packaging>jar</packaging>
+
+    <!-- ADDED -->
+    <parent>
+        <groupId>org.acme.bestpublishing</groupId>
+        <artifactId>best-publishing-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+
+    <properties>
+        <!-- Since alfresco.war (i.e. the Platform/Repository) is already running on port 8080, we run Share.WAR on port 8081.
+            If Alfresco Platform is not running, then generate a platform-jar-module and start it up. -->
+        <maven.tomcat.port>8081</maven.tomcat.port>
+    </properties>
+
+    <dependencies>
+        <!-- Following dependencies are needed for compiling Java code in src/main/java -->
+        <dependency>
+            <groupId>${alfresco.groupId}</groupId>
+            <artifactId>share</artifactId>
+            <version>${alfresco.share.version}</version>
+            <classifier>classes</classifier>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.alfresco.surf</groupId>
+            <artifactId>spring-surf-api</artifactId>
+            <version>${alfresco.surf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+                The Alfresco Maven Plugin contains all the logic to run the extension
+                in an embedded Tomcat with the H2 database.
+                -->
+            <plugin>
+                <groupId>org.alfresco.maven.plugin</groupId>
+                <artifactId>alfresco-maven-plugin</artifactId>
+                <version>${alfresco.sdk.version}</version>
+                <configuration>
+
+                    <!-- We assume that the platform/repository is already running on localhost:8080 -->
+                    <enableH2>false</enableH2>
+                    <enablePlatform>false</enablePlatform>
+                    <enableSolr>false</enableSolr>
+
+                    <!-- Enable the Share webapp, which is what we customize with Share JAR modules -->
+                    <enableShare>true</enableShare>
+
+                    <!--
+                       JARs and AMPs that should be overlayed/applied to the Share WAR
+                       (i.e. share.war)
+                   -->
+                    <shareModules>
+                        <!-- Bring in this JAR project, need to be included here, otherwise share-config-custom.xml
+                             will not be picked up. It will not be read from target/classes/META-INF -->
+                        <moduleDependency>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <version>${project.version}</version>
+                        </moduleDependency>
+                    </shareModules>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <!-- Filter the resource files in this project and do property substitutions -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <!-- Filter the test resource files in this project and do property substitutions -->
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+    </build>
+
+</project>
