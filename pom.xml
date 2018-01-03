@@ -5,18 +5,22 @@
     <artifactId>book-library-site-ui</artifactId>
     <version>1.0</version>
 
-    <!-- UPDATED -->
     <name>Book Library Site UI Components</name>
     <description>Book Library Site UI Components such as EPub Previewer</description>
     <packaging>jar</packaging>
 
-    <!-- ADDED -->
     <parent>
         <groupId>org.acme.bestpublishing</groupId>
         <artifactId>best-publishing-parent</artifactId>
         <version>1.1</version>
     </parent>
 
+    <scm>
+        <connection>scm:git:https://github.com/gravitonian/book-library-site-ui.git</connection>
+        <url>https://github.com/gravitonian/book-library-site-ui</url>
+        <developerConnection>scm:git:https://github.com/gravitonian/book-library-site-ui.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <!-- Since alfresco.war (i.e. the Platform/Repository) is already running on port 8080, we run Share.WAR on port 8081.
