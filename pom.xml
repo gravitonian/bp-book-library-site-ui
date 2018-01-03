@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>book-library-site-ui</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
 
     <name>Book Library Site UI Components</name>
     <description>Book Library Site UI Components such as EPub Previewer</description>
@@ -16,11 +16,10 @@
     </parent>
 
     <scm>
-        <connection>scm:git:https://github.com/gravitonian/book-library-site-ui.git</connection>
-        <url>https://github.com/gravitonian/book-library-site-ui</url>
-        <developerConnection>scm:git:https://github.com/gravitonian/book-library-site-ui.git</developerConnection>
-      <tag>v1.0</tag>
-  </scm>
+        <connection>scm:git:https://github.com/gravitonian/bp-book-library-site-ui.git</connection>
+        <url>https://github.com/gravitonian/bp-book-library-site-ui</url>
+        <developerConnection>scm:git:https://github.com/gravitonian/bp-book-library-site-ui.git</developerConnection>
+    </scm>
 
     <properties>
         <!-- Since alfresco.war (i.e. the Platform/Repository) is already running on port 8080, we run Share.WAR on port 8081.
